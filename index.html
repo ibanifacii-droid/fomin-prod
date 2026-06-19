@@ -163,6 +163,41 @@
     .telegram-btn { font-size:clamp(1rem,3.5vw,1.4rem); font-weight:700; padding:1rem 2.5rem; border:1px solid rgba(255,255,255,0.35); background:rgba(255,255,255,0.03); border-radius:60px; transition:all .4s; display:inline-block; backdrop-filter:blur(12px); color:#fff; text-decoration:none; letter-spacing:0.02em; }
     .telegram-btn:hover { background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.8); box-shadow:0 0 45px rgba(255,255,255,0.22); transform:scale(1.03); }
 
+    /* ---------- REVIEWS ---------- */
+    .reviews-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.5rem; margin-top:2rem; }
+    @media (max-width:600px) { .reviews-grid { grid-template-columns:1fr; } }
+    .review-card {
+      background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius:24px;
+      padding:2rem; position:relative; transition:border-color .3s,background .3s;
+    }
+    .review-card:hover { border-color:rgba(255,255,255,0.2); background:rgba(255,255,255,0.03); }
+    .review-quote { font-size:clamp(1rem,2.5vw,1.15rem); color:#d0d0d0; line-height:1.6; margin-bottom:1.5rem; font-style:italic; }
+    .review-author { display:flex; align-items:center; gap:1rem; }
+    .review-avatar { width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg,var(--accent1),var(--accent2)); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1.1rem; color:#fff; flex-shrink:0; }
+    .review-name { font-weight:600; font-size:0.95rem; }
+    .review-role { font-size:0.8rem; color:#7a7a7a; }
+    .review-stars { color:#f59e0b; font-size:0.85rem; margin-bottom:0.8rem; letter-spacing:2px; }
+
+    /* ---------- FORM ---------- */
+    .form-block { max-width:600px; margin:2rem auto 0; text-align:left; }
+    .form-group { margin-bottom:1.5rem; }
+    .form-label { display:block; font-size:0.85rem; color:#8a8a8a; margin-bottom:0.5rem; font-weight:500; letter-spacing:0.03em; }
+    .form-input, .form-textarea {
+      width:100%; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.12);
+      border-radius:16px; padding:1rem 1.2rem; color:#fff; font-family:var(--font-body);
+      font-size:1rem; outline:none; transition:border-color .3s,box-shadow .3s;
+    }
+    .form-input:focus, .form-textarea:focus { border-color:rgba(255,255,255,0.3); box-shadow:0 0 20px rgba(255,255,255,0.05); }
+    .form-textarea { min-height:120px; resize:vertical; }
+    .form-input::placeholder, .form-textarea::placeholder { color:#5a5a5a; }
+    .form-submit { width:100%; padding:1rem; font-size:1.1rem; font-weight:700; border:none; border-radius:60px; background:linear-gradient(135deg,var(--accent1),var(--accent2)); color:#fff; cursor:pointer; transition:transform .3s,box-shadow .3s; font-family:var(--font-body); }
+    .form-submit:hover { transform:scale(1.02); box-shadow:0 0 40px rgba(124,58,237,0.3); }
+    .form-submit:disabled { opacity:0.5; cursor:not-allowed; }
+    .form-success { text-align:center; display:none; }
+    .form-success.show { display:block; }
+    .form-success-icon { font-size:3rem; margin-bottom:1rem; }
+    .form-success-text { font-size:1.2rem; color:#b0b0b0; }
+
     /* ---------- FOOTER ---------- */
     .site-footer { text-align:center; padding:2rem 0 4rem; border-top:1px solid rgba(255,255,255,0.05); margin-top:2rem; }
     .footer-links { display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; margin-bottom:1.5rem; }
@@ -292,6 +327,88 @@
         <div class="timeline-step"><div class="step-number">02</div><div class="step-title">Создание дизайна</div><div class="step-desc">Уникальный визуальный концепт, прототипирование и согласование стиля.</div></div>
         <div class="timeline-step"><div class="step-number">03</div><div class="step-title">Разработка</div><div class="step-desc">Чистый код, плавные анимации, интеграция с CRM и аналитикой.</div></div>
         <div class="timeline-step"><div class="step-number">04</div><div class="step-title">Запуск и поддержка</div><div class="step-desc">Тестирование, техническая настройка и дальнейшее сопровождение.</div></div>
+      </div>
+    </section>
+
+    <!-- Отзывы -->
+    <section>
+      <div class="section-header">
+        <h2 class="section-title">Отзывы клиентов</h2>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-quote">«Иван сделал сайт для моего бренда одежды. Результат превзошёл ожидания — стильно, быстро, профессионально. Рекомендую!»</div>
+          <div class="review-author">
+            <div class="review-avatar">А</div>
+            <div>
+              <div class="review-name">Анастасия</div>
+              <div class="review-role">Основатель бренда LUXE</div>
+            </div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-quote">«Очень доволен сотрудничеством. Сайт получился именно таким, как я хотел. Конверсия выросла на 40% за первый месяц.»</div>
+          <div class="review-author">
+            <div class="review-avatar">М</div>
+            <div>
+              <div class="review-name">Михаил</div>
+              <div class="review-role">Владелец архитектурного бюро</div>
+            </div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-quote">«Быстро, качественно, с душой. Иван учёл все пожелания и предложил отличные решения, о которых я даже не думал.»</div>
+          <div class="review-author">
+            <div class="review-avatar">Е</div>
+            <div>
+              <div class="review-name">Елена</div>
+              <div class="review-role">Эксперт по маркетингу</div>
+            </div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-quote">«Лучший специалист с кем работал. Понятное общение, чёткие сроки, отличный результат. Обязательно обращусь ещё.»</div>
+          <div class="review-author">
+            <div class="review-avatar">Д</div>
+            <div>
+              <div class="review-name">Дмитрий</div>
+              <div class="review-role">CEO стартапа TechFlow</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Форма заявки -->
+    <section id="order-form">
+      <div class="contact-block" style="padding-bottom:2rem">
+        <h2 class="contact-title">Оставьте заявку</h2>
+        <p style="color:#7a7a7a; margin-bottom:2rem; font-size:1.05rem;">Я свяжусь с вами в течение часа</p>
+      </div>
+      <div class="form-block">
+        <form id="request-form" onsubmit="return submitForm(event)">
+          <div class="form-group">
+            <label class="form-label">Ваше имя</label>
+            <input type="text" class="form-input" id="form-name" placeholder="Иван" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Telegram / телефон</label>
+            <input type="text" class="form-input" id="form-contact" placeholder="@username или +7..." required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Опишите задачу</label>
+            <textarea class="form-textarea" id="form-message" placeholder="Расскажите о вашем проекте..." required></textarea>
+          </div>
+          <button type="submit" class="form-submit" id="form-btn">Отправить</button>
+        </form>
+        <div class="form-success" id="form-success">
+          <div class="form-success-icon">✓</div>
+          <div class="form-success-text">Спасибо! Я свяжусь с вами в ближайшее время.</div>
+        </div>
       </div>
     </section>
 
@@ -542,6 +659,36 @@
       document.getElementById('btn-discuss').addEventListener('click', () => lenis.scrollTo('.contact-block', {offset:0, duration:2}));
       document.getElementById('btn-works').addEventListener('click', () => lenis.scrollTo('#portfolio-grid', {offset:-50, duration:2}));
     })();
+
+    // --- TELEGRAM FORM ---
+    // Чтобы включить: создай бота у @BotFather, вставь токен ниже
+    const TG_TOKEN = ''; // сюда токен
+    const TG_CHAT_ID = ''; // сюда свой chat_id (узнать: @userinfobot)
+
+    async function submitForm(e) {
+      e.preventDefault();
+      const btn = document.getElementById('form-btn');
+      const name = document.getElementById('form-name').value.trim();
+      const contact = document.getElementById('form-contact').value.trim();
+      const msg = document.getElementById('form-message').value.trim();
+      if (!name || !contact || !msg) return;
+
+      btn.disabled = true; btn.textContent = 'Отправка...';
+
+      if (TG_TOKEN && TG_CHAT_ID) {
+        const text = `🔔 Новая заявка!\n\nИмя: ${name}\nКонтакты: ${contact}\nСообщение: ${msg}`;
+        try {
+          await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+            method: 'POST', headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({chat_id:TG_CHAT_ID, text})
+          });
+        } catch(_) {}
+      }
+
+      document.getElementById('request-form').style.display = 'none';
+      document.getElementById('form-success').classList.add('show');
+      return false;
+    }
   </script>
 </body>
 </html>
