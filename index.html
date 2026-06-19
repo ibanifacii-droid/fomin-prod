@@ -178,26 +178,6 @@
     .review-role { font-size:0.8rem; color:#7a7a7a; }
     .review-stars { color:#f59e0b; font-size:0.85rem; margin-bottom:0.8rem; letter-spacing:2px; }
 
-    /* ---------- FORM ---------- */
-    .form-block { max-width:600px; margin:2rem auto 0; text-align:left; }
-    .form-group { margin-bottom:1.5rem; }
-    .form-label { display:block; font-size:0.85rem; color:#8a8a8a; margin-bottom:0.5rem; font-weight:500; letter-spacing:0.03em; }
-    .form-input, .form-textarea {
-      width:100%; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.12);
-      border-radius:16px; padding:1rem 1.2rem; color:#fff; font-family:var(--font-body);
-      font-size:1rem; outline:none; transition:border-color .3s,box-shadow .3s;
-    }
-    .form-input:focus, .form-textarea:focus { border-color:rgba(255,255,255,0.3); box-shadow:0 0 20px rgba(255,255,255,0.05); }
-    .form-textarea { min-height:120px; resize:vertical; }
-    .form-input::placeholder, .form-textarea::placeholder { color:#5a5a5a; }
-    .form-submit { width:100%; padding:1rem; font-size:1.1rem; font-weight:700; border:none; border-radius:60px; background:linear-gradient(135deg,var(--accent1),var(--accent2)); color:#fff; cursor:pointer; transition:transform .3s,box-shadow .3s; font-family:var(--font-body); }
-    .form-submit:hover { transform:scale(1.02); box-shadow:0 0 40px rgba(124,58,237,0.3); }
-    .form-submit:disabled { opacity:0.5; cursor:not-allowed; }
-    .form-success { text-align:center; display:none; }
-    .form-success.show { display:block; }
-    .form-success-icon { font-size:3rem; margin-bottom:1rem; }
-    .form-success-text { font-size:1.2rem; color:#b0b0b0; }
-
     /* ---------- FOOTER ---------- */
     .site-footer { text-align:center; padding:2rem 0 4rem; border-top:1px solid rgba(255,255,255,0.05); margin-top:2rem; }
     .footer-links { display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; margin-bottom:1.5rem; }
@@ -383,35 +363,8 @@
       </div>
     </section>
 
-    <!-- Форма заявки -->
-    <section id="order-form">
-      <div class="contact-block" style="padding-bottom:2rem">
-        <h2 class="contact-title">Оставьте заявку</h2>
-        <p style="color:#7a7a7a; margin-bottom:2rem; font-size:1.05rem;">Я свяжусь с вами в течение часа</p>
-      </div>
-      <div class="form-block">
-        <form id="request-form" onsubmit="return submitForm(event)">
-          <div class="form-group">
-            <label class="form-label">Ваше имя</label>
-            <input type="text" class="form-input" id="form-name" placeholder="Иван" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Telegram / телефон</label>
-            <input type="text" class="form-input" id="form-contact" placeholder="@username или +7..." required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Опишите задачу</label>
-            <textarea class="form-textarea" id="form-message" placeholder="Расскажите о вашем проекте..." required></textarea>
-          </div>
-          <button type="submit" class="form-submit" id="form-btn">Отправить</button>
-        </form>
-        <div class="form-success" id="form-success">
-          <div class="form-success-icon">✓</div>
-          <div class="form-success-text">Спасибо! Я свяжусь с вами в ближайшее время.</div>
-        </div>
-      </div>
-    </section>
 
+    <!-- Отзывы -->
     <!-- Обо мне -->
     <section>
       <div class="about-block">
@@ -659,36 +612,6 @@
       document.getElementById('btn-discuss').addEventListener('click', () => lenis.scrollTo('.contact-block', {offset:0, duration:2}));
       document.getElementById('btn-works').addEventListener('click', () => lenis.scrollTo('#portfolio-grid', {offset:-50, duration:2}));
     })();
-
-    // --- TELEGRAM FORM ---
-    // Чтобы включить: создай бота у @BotFather, вставь токен ниже
-    const TG_TOKEN = ''; // сюда токен
-    const TG_CHAT_ID = ''; // сюда свой chat_id (узнать: @userinfobot)
-
-    async function submitForm(e) {
-      e.preventDefault();
-      const btn = document.getElementById('form-btn');
-      const name = document.getElementById('form-name').value.trim();
-      const contact = document.getElementById('form-contact').value.trim();
-      const msg = document.getElementById('form-message').value.trim();
-      if (!name || !contact || !msg) return;
-
-      btn.disabled = true; btn.textContent = 'Отправка...';
-
-      if (TG_TOKEN && TG_CHAT_ID) {
-        const text = `🔔 Новая заявка!\n\nИмя: ${name}\nКонтакты: ${contact}\nСообщение: ${msg}`;
-        try {
-          await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
-            method: 'POST', headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({chat_id:TG_CHAT_ID, text})
-          });
-        } catch(_) {}
-      }
-
-      document.getElementById('request-form').style.display = 'none';
-      document.getElementById('form-success').classList.add('show');
-      return false;
-    }
   </script>
 </body>
 </html>
