@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>FOMIN PROD</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%237c3aed'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Arial' font-weight='bold' font-size='18' fill='white'%3EFP%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -164,6 +165,39 @@
     .section-header { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:2rem; flex-wrap:wrap; gap:0.5rem; }
     .section-title { font-size:clamp(2rem,7vw,3.8rem); font-weight:700; letter-spacing:-0.03em; }
 
+    /* ---------- PORTFOLIO PLACEHOLDER ---------- */
+    .portfolio-placeholder {
+      text-align:center; padding:3rem 2rem;
+      border:1px dashed rgba(255,255,255,0.15); border-radius:28px;
+      background:rgba(255,255,255,0.01); margin-top:1.5rem;
+      transition:border-color .3s;
+    }
+    .portfolio-placeholder:hover { border-color:rgba(255,255,255,0.3); }
+    .portfolio-placeholder p { color:#8a8a8a; font-size:clamp(1rem,3vw,1.2rem); margin-bottom:1.2rem; line-height:1.5; }
+    .portfolio-placeholder .telegram-link { color:#fff; font-weight:600; text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.3); transition:border-color .3s; }
+    .portfolio-placeholder .telegram-link:hover { border-color:#fff; }
+
+    /* ---------- FAQ ---------- */
+    .faq-list { max-width:720px; margin:2rem auto 0; }
+    .faq-item { border-bottom:1px solid rgba(255,255,255,0.08); }
+    .faq-question {
+      width:100%; background:none; border:none; color:#fff;
+      font-family:var(--font-body); font-size:clamp(1rem,3vw,1.15rem);
+      font-weight:600; text-align:left; padding:1.2rem 0;
+      cursor:pointer; display:flex; justify-content:space-between;
+      align-items:center; transition:color .3s;
+    }
+    .faq-question:hover { color:#b0b0b0; }
+    .faq-arrow { transition:transform .3s; font-size:0.8rem; color:#7a7a7a; }
+    .faq-item.open .faq-arrow { transform:rotate(180deg); }
+    .faq-answer {
+      max-height:0; overflow:hidden; transition:max-height .4s ease, padding .4s ease;
+      color:#8a8a8a; font-size:clamp(0.9rem,2.5vw,1rem); line-height:1.6;
+      padding:0 0; box-sizing:border-box;
+    }
+    .faq-item.open .faq-answer { max-height:200px; padding:0 0 1.2rem; }
+    .faq-answer a { color:#fff; text-decoration:underline; }
+
     /* ---------- TIMELINE ---------- */
     .services-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.5rem; margin-top:1.5rem; }
     @media (max-width:600px) { .services-grid { grid-template-columns:1fr; } }
@@ -323,6 +357,41 @@
           <h3 class="service-title">Редизайн / Доработка</h3>
           <p class="service-desc">Обновление существующего сайта, улучшение скорости и конверсии.</p>
           <div class="service-price">от 5 000 ₽</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Портфолио -->
+    <section>
+      <div class="section-header">
+        <h2 class="section-title">Портфолио</h2>
+      </div>
+      <div class="portfolio-placeholder">
+        <p>Примеры работ покажу в личном общении — напишите в <a href="https://t.me/vfominq" target="_blank" class="telegram-link">Telegram</a>, скину живые проекты</p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section>
+      <div class="section-header">
+        <h2 class="section-title">Частые вопросы</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">Сколько времени занимает разработка? <span class="faq-arrow">▼</span></button>
+          <div class="faq-answer">Стандартный сайт — от 3 до 7 дней. Сложные проекты — до 14 дней. Сроки обговариваем индивидуально.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">Какие условия оплаты? <span class="faq-arrow">▼</span></button>
+          <div class="faq-answer">Предоплата 50%, остальное после сдачи проекта. Работаем по договору.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">Что нужно для старта? <span class="faq-arrow">▼</span></button>
+          <div class="faq-answer">ТЗ или описание задачи. Всё остальное обсудим на созвоне.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">Делаете правки после сдачи? <span class="faq-arrow">▼</span></button>
+          <div class="faq-answer">Да, даю неделю на бесплатные правки после запуска. Дальнейшее обслуживание — по договорённости.</div>
         </div>
       </div>
     </section>
@@ -560,6 +629,10 @@
 
       document.getElementById('btn-discuss').addEventListener('click', () => lenis.scrollTo('.contact-block', {offset:0, duration:2}));
     })();
+
+    function toggleFaq(btn) {
+      btn.parentElement.classList.toggle('open');
+    }
   </script>
 </body>
 </html>
