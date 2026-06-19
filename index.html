@@ -691,7 +691,7 @@
       }
       drawBg();
 
-      // --- EARTH GLOBE ---
+      // --- 4K EARTH GLOBE ---
       try {
         const globeCanvas = document.getElementById('globe-canvas');
         if (!globeCanvas) throw 'no canvas';
@@ -708,80 +708,109 @@
         resizeGlobe();
         window.addEventListener('resize', resizeGlobe);
 
-        // Simplified continent outlines [lat, lon] in degrees
-        const continents = [
-          // North America
-          [[58,-135],[52,-130],[48,-125],[45,-120],[40,-122],[35,-118],[30,-115],[25,-110],[25,-100],[30,-95],[30,-85],[25,-80],[28,-82],[30,-80],[35,-75],[40,-75],[45,-68],[48,-67],[50,-60],[52,-55],[55,-60],[58,-65],[60,-75],[62,-85],[62,-95],[60,-105],[57,-115],[55,-120],[52,-125],[58,-135]],
-          // Central America
-          [[18,-92],[20,-88],[15,-85],[10,-85],[8,-80],[10,-75],[15,-78],[18,-88],[18,-92]],
-          // South America
-          [[10,-75],[5,-78],[0,-80],[-5,-78],[-10,-75],[-15,-70],[-20,-68],[-25,-65],[-30,-68],[-35,-65],[-40,-70],[-45,-65],[-48,-62],[-50,-68],[-52,-72],[-55,-70],[-55,-65],[-50,-58],[-45,-50],[-40,-48],[-35,-50],[-30,-52],[-25,-50],[-20,-45],[-15,-42],[-10,-38],[-5,-35],[0,-50],[5,-55],[10,-60],[10,-75]],
-          // Europe
-          [[48,-8],[50,-6],[52,-5],[55,-5],[58,-8],[60,-5],[62,-5],[65,-10],[68,-15],[70,-20],[70,-25],[68,-30],[65,-25],[62,-20],[58,-18],[55,-15],[52,-12],[50,-10],[48,-5],[45,0],[42,5],[40,5],[38,8],[40,12],[42,15],[45,18],[48,20],[50,22],[52,25],[55,28],[58,25],[60,28],[62,30],[65,32],[68,35],[68,40],[65,45],[62,48],[60,50],[58,55],[55,60],[52,55],[50,50],[48,45],[45,40],[42,38],[40,35],[38,30],[36,28],[35,25],[38,20],[40,15],[42,10],[45,8],[48,-8]],
-          // Africa
-          [[35,-5],[35,0],[35,5],[32,10],[30,12],[28,15],[25,18],[22,20],[20,22],[18,25],[15,28],[12,30],[10,32],[8,35],[5,38],[2,40],[0,42],[-2,40],[-5,38],[-8,35],[-10,30],[-12,28],[-15,25],[-18,22],[-20,20],[-22,18],[-25,15],[-28,12],[-30,10],[-32,8],[-32,5],[-30,0],[-28,-5],[-25,-10],[-22,-12],[-20,-15],[-18,-18],[-15,-20],[-12,-15],[-10,-10],[-8,-8],[-5,-10],[0,-8],[5,-10],[10,-12],[12,-10],[15,-8],[18,-5],[20,0],[22,-2],[25,-5],[28,-8],[30,-10],[32,-8],[35,-5]],
-          // Asia (simplified)
-          [[70,-30],[70,-20],[70,-10],[70,0],[70,10],[70,20],[68,30],[65,40],[62,50],[60,60],[58,70],[55,80],[52,90],[50,100],[48,110],[45,120],[42,130],[40,135],[35,130],[30,125],[25,120],[22,115],[20,110],[18,105],[15,100],[12,95],[10,90],[8,85],[5,80],[5,75],[8,70],[10,65],[12,60],[15,55],[18,50],[20,45],[22,40],[25,35],[28,30],[30,25],[35,20],[40,15],[42,10],[45,8],[48,10],[50,12],[52,15],[55,20],[58,25],[60,30],[62,35],[65,40],[68,35],[70,30],[70,-30]],
-          // India
-          [[32,70],[30,75],[28,78],[25,80],[22,82],[18,82],[15,80],[12,78],[10,75],[8,78],[10,80],[12,82],[15,85],[18,88],[20,90],[22,88],[25,85],[28,82],[30,80],[32,75],[32,70]],
-          // Southeast Asia
-          [[20,100],[18,102],[15,105],[12,108],[10,108],[8,106],[5,105],[2,104],[0,104],[-2,106],[-5,110],[-8,115],[-5,118],[-2,120],[0,120],[2,118],[5,115],[8,112],[10,110],[12,112],[15,110],[18,108],[20,105],[20,100]],
-          // Australia
-          [[-15,130],[-20,125],[-25,120],[-30,120],[-35,130],[-38,140],[-35,148],[-28,150],[-22,150],[-18,145],[-15,140],[-12,135],[-15,130]],
-          // Antarctica
-          [[-70,-180],[-70,-120],[-70,-60],[-70,0],[-70,60],[-70,120],[-70,180],[-75,180],[-80,120],[-82,60],[-82,0],[-82,-60],[-80,-120],[-75,-180],[-70,-180]],
-          // Greenland
-          [[76,-70],[80,-65],[82,-55],[82,-45],[80,-40],[76,-45],[72,-50],[70,-55],[72,-65],[76,-70]],
-          // UK
-          [[55,-6],[55,-2],[52,-2],[50,-5],[50,-6],[52,-8],[55,-6]],
-          // Japan
-          [[35,135],[40,140],[42,145],[38,150],[35,148],[32,145],[30,140],[32,135],[35,135]],
-          // Madagascar
-          [[-15,48],[-12,50],[-12,52],[-18,54],[-20,52],[-22,50],[-20,48],[-15,48]],
-          // Middle East
-          [[32,40],[30,42],[28,45],[25,48],[22,50],[18,48],[15,45],[12,42],[15,40],[18,38],[20,40],[22,42],[25,40],[28,38],[30,35],[32,40]],
-        ];
+        // --- Generate 4K Earth Texture with improved noise ---
+        function hash(x, y) {
+          let h = x * 374761393 + y * 668265263;
+          h = (h ^ (h >> 13)) * 1274126177;
+          return (h ^ (h >> 16)) / 2147483648;
+        }
 
-        // Stable colors for each continent (no random per frame)
-        const palettes = [
-          ['#3d7a2a','#4a8a35','#356a22'], // NA
-          ['#4a8a35','#3d7a2a','#569a40'], // CA
-          ['#3d7a2a','#4a8a35','#356a22'], // SA
-          ['#5a8a3a','#6a9a4a','#4a7a2a'], // Europe
-          ['#4a7a2a','#3a6a1a','#5a8a35'], // Africa
-          ['#5a8a35','#4a7a25','#6a9a45'], // Asia
-          ['#4a8a35','#3d7a2a','#569a40'], // India
-          ['#3d7a2a','#4a8a35','#356a22'], // SE Asia
-          ['#6a5a2a','#7a6a35','#5a4a1a'], // Australia
-          ['#ffffff','#e8f0e0','#d0e0c0'], // Antarctica
-          ['#c4d4b0','#d4e4c0','#b4c4a0'], // Greenland
-          ['#5a8a3a','#4a7a2a','#6a9a4a'], // UK
-          ['#4a7a25','#3a6a15','#5a8a35'], // Japan
-          ['#3d7a2a','#4a8a35','#356a22'], // Madagascar
-          ['#5a6a2a','#6a7a35','#4a5a1a'], // ME
-        ];
+        function smoothstep(t) { return t * t * (3 - 2 * t); }
+
+        function smoothNoise(x, y) {
+          const ix = Math.floor(x), iy = Math.floor(y);
+          const fx = x - ix, fy = y - iy;
+          const sx = smoothstep(fx), sy = smoothstep(fy);
+          const n00 = hash(ix, iy), n10 = hash(ix+1, iy);
+          const n01 = hash(ix, iy+1), n11 = hash(ix+1, iy+1);
+          return n00 + (n10-n00)*sx + (n01-n00)*sy + (n11-n10-n01+n00)*sx*sy;
+        }
+
+        function fbm(x, y, octaves) {
+          let val = 0, amp = 1, freq = 1, maxVal = 0;
+          for (let i = 0; i < octaves; i++) { val += amp * smoothNoise(x*freq, y*freq); maxVal += amp; amp *= 0.5; freq *= 2; }
+          return val / maxVal;
+        }
+
+        const TEX_W = 1024, TEX_H = 512;
+        const texCanvas = document.createElement('canvas');
+        texCanvas.width = TEX_W; texCanvas.height = TEX_H;
+        const tCtx = texCanvas.getContext('2d');
+        const imgData = tCtx.createImageData(TEX_W, TEX_H);
+        const d = imgData.data;
+
+        for (let y = 0; y < TEX_H; y++) {
+          for (let x = 0; x < TEX_W; x++) {
+            const lat = (y / TEX_H) * 180 - 90;
+            const lon = (x / TEX_W) * 360 - 180;
+            const n = fbm(lon * 0.025 + 10.5, lat * 0.025 + 5.3, 7);
+            const n2 = fbm(lon * 0.05 + 3.7, lat * 0.05 + 8.1, 4);
+            const idx = (y * TEX_W + x) * 4;
+            const absLat = Math.abs(lat);
+
+            let r, g, b;
+            if (absLat > 72) {
+              const ice = Math.min(1, (absLat - 72) / 10);
+              r = 230 + 20 * ice; g = 235 + 15 * ice; b = 240 + 10 * ice;
+            } else if (n > 0.48) {
+              // Land - vary by latitude
+              const detail = n2 * 0.15;
+              if (absLat > 55) {
+                r = 80 + n * 60 + detail * 100; g = 90 + n * 50 + detail * 80; b = 60 + n * 30 + detail * 50;
+              } else if (absLat > 30) {
+                r = 50 + n * 70 + detail * 80; g = 90 + n * 60 + detail * 60; b = 30 + n * 20 + detail * 30;
+              } else {
+                r = 40 + n * 60 + detail * 60; g = 80 + n * 50 + detail * 50; b = 20 + n * 20 + detail * 20;
+              }
+              // Deserts
+              if (absLat > 15 && absLat < 35 && n > 0.55 && n < 0.7) {
+                r += 40; g += 20; b -= 10;
+              }
+            } else {
+              // Ocean - depth variation
+              const depth = 1 - n / 0.48;
+              r = 15 + depth * 30 + n2 * 20;
+              g = 40 + depth * 50 + n2 * 25;
+              b = 80 + depth * 80 + n2 * 30;
+              // Shallow water near coasts
+              if (n > 0.38) { r += 20; g += 30; b += 20; }
+            }
+
+            d[idx] = Math.min(255, Math.max(0, r));
+            d[idx+1] = Math.min(255, Math.max(0, g));
+            d[idx+2] = Math.min(255, Math.max(0, b));
+            d[idx+3] = 255;
+          }
+        }
+        tCtx.putImageData(imgData, 0, 0);
+
+        // --- Create dense particle grid from texture ---
+        const particles = [];
+        const STEP = 3; // degrees between particles -> ~ (360/3)*(180/3) = 7200 particles
+        for (let lat = -87; lat <= 87; lat += STEP) {
+          for (let lon = -177; lon <= 177; lon += STEP) {
+            const phi = (90 - lat) * Math.PI / 180;
+            const theta = lon * Math.PI / 180;
+            const u = (lon + 180) / 360;
+            const v = (90 - lat) / 180;
+            const tx = Math.floor(u * TEX_W) % TEX_W;
+            const ty = Math.floor(v * TEX_H) % TEX_H;
+            const pi = (ty * TEX_W + tx) * 4;
+            particles.push({
+              x: Math.sin(phi) * Math.cos(theta),
+              y: Math.cos(phi),
+              z: Math.sin(phi) * Math.sin(theta),
+              r: d[pi], g: d[pi+1], b: d[pi+2]
+            });
+          }
+        }
 
         let gAngle = 0, gMouseX = 0, gMouseY = 0;
-        let targetRotX = 0;
         globeCanvas.parentElement.addEventListener('mousemove', e => {
           const r = globeCanvas.parentElement.getBoundingClientRect();
           gMouseX = (e.clientX - r.left) / r.width - 0.5;
           gMouseY = (e.clientY - r.top) / r.height - 0.5;
         });
-
-        function latLonTo3D(lat, lon) {
-          const phi = (90 - lat) * Math.PI / 180;
-          const theta = lon * Math.PI / 180;
-          return { x: Math.sin(phi) * Math.cos(theta), y: Math.cos(phi), z: Math.sin(phi) * Math.sin(theta) };
-        }
-
-        function rotate3D(p, ry, rx) {
-          let x1 = p.x * Math.cos(ry) + p.z * Math.sin(ry);
-          let z1 = -p.x * Math.sin(ry) + p.z * Math.cos(ry);
-          let y2 = p.y * Math.cos(rx) - z1 * Math.sin(rx);
-          let z2 = p.y * Math.sin(rx) + z1 * Math.cos(rx);
-          return { x: x1, y: y2, z: z2 };
-        }
 
         function drawEarth() {
           requestAnimationFrame(drawEarth);
@@ -790,51 +819,35 @@
           const cx = gW / 2, cy = gH / 2;
           const radius = Math.min(gW, gH) * 0.38;
 
-          gAngle += 0.004 + gMouseX * 0.0015;
-          targetRotX += (Math.sin(Date.now() * 0.0005) * 0.1 + gMouseY * 0.2 - targetRotX) * 0.05;
+          gAngle += 0.003 + gMouseX * 0.001;
+          const rotX = Math.sin(Date.now() * 0.0003) * 0.12 + gMouseY * 0.25;
 
-          // Ocean
-          const grad = gCtx.createRadialGradient(cx-20, cy-20, 0, cx, cy, radius*1.1);
-          grad.addColorStop(0, '#2a6a9a'); grad.addColorStop(0.4, '#1a5276');
-          grad.addColorStop(0.7, '#0d3b5e'); grad.addColorStop(1, '#0a2a4a');
-          gCtx.beginPath(); gCtx.arc(cx, cy, radius*1.1, 0, Math.PI*2);
-          gCtx.fillStyle = grad; gCtx.fill();
-
-          // Project and sort continents by depth
-          const contData = continents.map((cont, ci) => {
-            const proj = cont.map(p => {
-              const p3d = rotate3D(latLonTo3D(p[0], p[1]), gAngle, targetRotX);
-              const scale = 1 / (1 + p3d.z * 0.5);
-              return { x: cx + p3d.x * radius * scale, y: cy + p3d.y * radius * scale, z: p3d.z, s: scale };
-            });
-            const avgZ = proj.reduce((a, b) => a + b.z, 0) / proj.length;
-            return { proj, avgZ, ci };
-          }).sort((a, b) => a.avgZ - b.avgZ);
+          // Project particles
+          const projected = particles.map(p => {
+            let x1 = p.x * Math.cos(gAngle) + p.z * Math.sin(gAngle);
+            let z1 = -p.x * Math.sin(gAngle) + p.z * Math.cos(gAngle);
+            let y2 = p.y * Math.cos(rotX) - z1 * Math.sin(rotX);
+            let z2 = p.y * Math.sin(rotX) + z1 * Math.cos(rotX);
+            const scale = 1 / (1 + z2 * 0.5);
+            return { sx: cx + x1 * radius * scale, sy: cy + y2 * radius * scale, z: z2, r: p.r, g: p.g, b: p.b, size: Math.max(0.6, 2.2 * scale) };
+          }).sort((a, b) => a.z - b.z);
 
           // Draw back-to-front
-          for (const cd of contData) {
-            const pts = cd.proj;
-            if (pts.length < 3 || cd.avgZ < -0.8) continue;
-            const pal = palettes[cd.ci % palettes.length];
-            const col = pal[Math.floor(cd.ci * 7) % pal.length];
-
-            gCtx.beginPath(); gCtx.moveTo(pts[0].x, pts[0].y);
-            for (let i = 1; i < pts.length; i++) gCtx.lineTo(pts[i].x, pts[i].y);
-            gCtx.closePath();
-            gCtx.fillStyle = col;
-            const a = Math.max(0.3, (cd.avgZ + 1) * 0.55);
-            gCtx.globalAlpha = Math.min(1, a + 0.3);
+          for (const pt of projected) {
+            if (pt.z < -0.6) continue;
+            gCtx.beginPath(); gCtx.arc(pt.sx, pt.sy, pt.size, 0, Math.PI * 2);
+            const a = Math.max(0.15, (pt.z + 1) * 0.45);
+            gCtx.fillStyle = `rgba(${pt.r|0},${pt.g|0},${pt.b|0},${a})`;
             gCtx.fill();
-            gCtx.globalAlpha = 1;
           }
 
-          // Atmosphere glow
-          const glow = gCtx.createRadialGradient(cx, cy, radius*0.7, cx, cy, radius*1.2);
+          // Atmosphere
+          const glow = gCtx.createRadialGradient(cx, cy, radius*0.8, cx, cy, radius*1.25);
           glow.addColorStop(0, 'rgba(100,180,255,0)');
-          glow.addColorStop(0.8, 'rgba(100,180,255,0)');
-          glow.addColorStop(0.9, 'rgba(100,180,255,0.06)');
+          glow.addColorStop(0.85, 'rgba(100,180,255,0)');
+          glow.addColorStop(0.92, 'rgba(100,180,255,0.05)');
           glow.addColorStop(1, 'rgba(100,180,255,0)');
-          gCtx.beginPath(); gCtx.arc(cx, cy, radius*1.2, 0, Math.PI*2);
+          gCtx.beginPath(); gCtx.arc(cx, cy, radius*1.25, 0, Math.PI*2);
           gCtx.fillStyle = glow; gCtx.fill();
         }
         drawEarth();
