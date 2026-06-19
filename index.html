@@ -127,23 +127,6 @@
     .marquee-content { display:inline-block; animation:marquee 25s linear infinite; font-family:var(--font-heading); font-size:clamp(1.2rem,4vw,1.8rem); font-weight:600; letter-spacing:0.05em; text-transform:uppercase; color:rgba(255,255,255,0.35); }
     @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 
-    /* ---------- PORTFOLIO ---------- */
-    .section-header { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:2rem; flex-wrap:wrap; gap:0.5rem; }
-    .section-title { font-size:clamp(2rem,7vw,3.8rem); font-weight:700; letter-spacing:-0.03em; }
-    .portfolio-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.5rem; }
-    @media (max-width:600px) { .portfolio-grid { grid-template-columns:1fr; } }
-    .portfolio-card { position:relative; background:#080808; border:1px solid rgba(255,255,255,0.08); border-radius:28px; overflow:hidden; transition:border-color .4s,box-shadow .5s; }
-    .portfolio-card:hover { border-color:rgba(255,255,255,0.25); box-shadow:0 25px 50px -18px rgba(0,0,0,0.8); }
-    .card-image { width:100%; height:clamp(200px,40vw,300px); object-fit:cover; display:block; transition:transform .9s cubic-bezier(0.25,0.46,0.45,0.94); }
-    .portfolio-card:hover .card-image { transform:scale(1.05); }
-    .card-overlay { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(to top,rgba(5,5,5,.98) 25%,transparent); padding:2rem 1.5rem 1.5rem; opacity:0; transform:translateY(25px); transition:opacity .4s,transform .45s cubic-bezier(0.23,1,0.32,1); }
-    .portfolio-card:hover .card-overlay { opacity:1; transform:translateY(0); }
-    .card-overlay h3 { font-family:var(--font-heading); font-size:clamp(1.3rem,4vw,2rem); font-weight:700; margin-bottom:0.25rem; }
-    .card-overlay p { color:#b0b0b0; font-size:clamp(0.85rem,2.5vw,1rem); margin-bottom:0.8rem; }
-    .card-tag { display:inline-block; border:1px solid rgba(255,255,255,0.25); padding:0.2rem 1rem; border-radius:30px; font-size:clamp(0.7rem,2vw,0.8rem); letter-spacing:0.04em; text-transform:uppercase; }
-    .card-glow { position:absolute; top:0; left:0; width:500px; height:500px; background:radial-gradient(circle at center,rgba(255,255,255,0.12) 0%,transparent 70%); pointer-events:none; transform:translate(-50%,-50%); opacity:0; transition:opacity .4s; z-index:2; }
-    .portfolio-card:hover .card-glow { opacity:1; }
-
     /* ---------- TIMELINE ---------- */
     .timeline { position:relative; padding-left:2rem; border-left:1px solid rgba(255,255,255,0.15); margin-top:2rem; }
     .timeline-step { position:relative; margin-bottom:3rem; opacity:0; transform:translateX(-30px); }
@@ -163,20 +146,37 @@
     .telegram-btn { font-size:clamp(1rem,3.5vw,1.4rem); font-weight:700; padding:1rem 2.5rem; border:1px solid rgba(255,255,255,0.35); background:rgba(255,255,255,0.03); border-radius:60px; transition:all .4s; display:inline-block; backdrop-filter:blur(12px); color:#fff; text-decoration:none; letter-spacing:0.02em; }
     .telegram-btn:hover { background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.8); box-shadow:0 0 45px rgba(255,255,255,0.22); transform:scale(1.03); }
 
-    /* ---------- REVIEWS ---------- */
-    .reviews-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.5rem; margin-top:2rem; }
-    @media (max-width:600px) { .reviews-grid { grid-template-columns:1fr; } }
-    .review-card {
-      background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius:24px;
-      padding:2rem; position:relative; transition:border-color .3s,background .3s;
+    /* ---------- SERVICES ---------- */
+    .services-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.5rem; margin-top:1.5rem; }
+    @media (max-width:600px) { .services-grid { grid-template-columns:1fr; } }
+    .service-card {
+      background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius:28px;
+      padding:2rem 1.8rem; position:relative; transition:border-color .3s,background .3s,transform .3s;
     }
-    .review-card:hover { border-color:rgba(255,255,255,0.2); background:rgba(255,255,255,0.03); }
-    .review-quote { font-size:clamp(1rem,2.5vw,1.15rem); color:#d0d0d0; line-height:1.6; margin-bottom:1.5rem; font-style:italic; }
-    .review-author { display:flex; align-items:center; gap:1rem; }
-    .review-avatar { width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg,var(--accent1),var(--accent2)); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1.1rem; color:#fff; flex-shrink:0; }
-    .review-name { font-weight:600; font-size:0.95rem; }
-    .review-role { font-size:0.8rem; color:#7a7a7a; }
-    .review-stars { color:#f59e0b; font-size:0.85rem; margin-bottom:0.8rem; letter-spacing:2px; }
+    .service-card:hover { border-color:rgba(255,255,255,0.25); background:rgba(255,255,255,0.03); transform:translateY(-4px); }
+    .service-icon { width:44px; height:44px; margin-bottom:1.2rem; color:rgba(255,255,255,0.6); }
+    .service-icon svg { width:44px; height:44px; }
+    .service-title { font-family:var(--font-heading); font-size:clamp(1.4rem,4vw,1.8rem); font-weight:700; margin-bottom:0.5rem; letter-spacing:-0.02em; }
+    .service-desc { color:#8a8a8a; font-size:clamp(0.9rem,2.5vw,1rem); line-height:1.5; margin-bottom:1.5rem; }
+    .service-price { font-family:var(--font-heading); font-size:clamp(1.3rem,4vw,1.6rem); font-weight:700; color:#fff; letter-spacing:-0.02em; }
+
+    /* ---------- SECTION HEADER ---------- */
+    .section-header { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:2rem; flex-wrap:wrap; gap:0.5rem; }
+    .section-title { font-size:clamp(2rem,7vw,3.8rem); font-weight:700; letter-spacing:-0.03em; }
+
+    /* ---------- TIMELINE ---------- */
+    .services-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.5rem; margin-top:1.5rem; }
+    @media (max-width:600px) { .services-grid { grid-template-columns:1fr; } }
+    .service-card {
+      background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius:28px;
+      padding:2rem 1.8rem; position:relative; transition:border-color .3s,background .3s,transform .3s;
+    }
+    .service-card:hover { border-color:rgba(255,255,255,0.25); background:rgba(255,255,255,0.03); transform:translateY(-4px); }
+    .service-icon { width:44px; height:44px; margin-bottom:1.2rem; color:rgba(255,255,255,0.6); }
+    .service-icon svg { width:44px; height:44px; }
+    .service-title { font-family:var(--font-heading); font-size:clamp(1.4rem,4vw,1.8rem); font-weight:700; margin-bottom:0.5rem; letter-spacing:-0.02em; }
+    .service-desc { color:#8a8a8a; font-size:clamp(0.9rem,2.5vw,1rem); line-height:1.5; margin-bottom:1.5rem; }
+    .service-price { font-family:var(--font-heading); font-size:clamp(1.3rem,4vw,1.6rem); font-weight:700; color:#fff; letter-spacing:-0.02em; }
 
     /* ---------- FOOTER ---------- */
     .site-footer { text-align:center; padding:2rem 0 4rem; border-top:1px solid rgba(255,255,255,0.05); margin-top:2rem; }
@@ -211,7 +211,6 @@
       .main-content { padding:0 5vw; }
       .hero { min-height:auto; }
       .hero-mockup { max-width:220px; }
-      .card-overlay { opacity:1; transform:translateY(0); padding:1.2rem 1rem; background:linear-gradient(to top,rgba(5,5,5,.95) 20%,transparent); }
       .about-text { font-size:1.1rem; }
       .contact-block { padding:4rem 0 2rem; }
     }
@@ -228,7 +227,7 @@
     <section class="hero">
       <div class="hero-left">
         <h1 class="hero-title" id="hero-title">Создаю сайты,<br>которые продают.</h1>
-        <p class="hero-subtitle">Современные лендинги и сайты для бизнеса, брендов и экспертов. Быстро, стильно и с акцентом на результат.</p>
+        <p class="hero-subtitle">Создаю современные сайты на заказ. Пишу чистый код, адаптив, анимации — от лендинга до интернет-магазина.</p>
         <div class="button-group">
           <button class="magnetic-btn primary" id="btn-discuss">Обсудить проект</button>
           <button class="magnetic-btn secondary" id="btn-works">Смотреть работы</button>
@@ -243,16 +242,16 @@
     <section>
       <div class="stats-grid" id="stats-grid">
         <div class="stat-item">
-          <div class="stat-number" data-target="20">0</div>
-          <div class="stat-label">Выполненных проектов</div>
+          <div class="stat-number" data-target="7">0</div>
+          <div class="stat-label">Лет в веб-разработке</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number" data-target="15">0</div>
-          <div class="stat-label">Довольных клиентов</div>
+          <div class="stat-number" data-target="12">0</div>
+          <div class="stat-label">Освоенных технологий</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number" data-target="4">0</div>
-          <div class="stat-label">Года опыта</div>
+          <div class="stat-number" data-target="100">0</div>
+          <div class="stat-label">% индивидуальный подход</div>
         </div>
       </div>
     </section>
@@ -291,13 +290,45 @@
       </div>
     </section>
 
-    <!-- Портфолио -->
+    <!-- Услуги и цены -->
     <section>
       <div class="section-header">
-        <h2 class="section-title">Избранные проекты</h2>
-        <span style="color:#7a7a7a; font-weight:500;">04 / 2025</span>
+        <h2 class="section-title">Услуги и цены</h2>
       </div>
-      <div class="portfolio-grid" id="portfolio-grid"></div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+          <h3 class="service-title">Лендинг</h3>
+          <p class="service-desc">Одностраничный сайт для запуска продукта, услуги или мероприятия.</p>
+          <div class="service-price">от 15 000 ₽</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h18M12 3v18"/></svg>
+          </div>
+          <h3 class="service-title">Многостраничный сайт</h3>
+          <p class="service-desc">Полноценный сайт с разделами, контентом и вашей уникальной структурой.</p>
+          <div class="service-price">от 35 000 ₽</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <h3 class="service-title">Интернет-магазин</h3>
+          <p class="service-desc">Сайт с каталогом, корзиной, оплатой и личным кабинетом.</p>
+          <div class="service-price">от 60 000 ₽</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h3 class="service-title">Редизайн / Доработка</h3>
+          <p class="service-desc">Обновление существующего сайта, улучшение скорости и конверсии.</p>
+          <div class="service-price">от 10 000 ₽</div>
+        </div>
+      </div>
     </section>
 
     <!-- Процесс -->
@@ -310,61 +341,6 @@
       </div>
     </section>
 
-    <!-- Отзывы -->
-    <section>
-      <div class="section-header">
-        <h2 class="section-title">Отзывы клиентов</h2>
-      </div>
-      <div class="reviews-grid">
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-quote">«Иван сделал сайт для моего бренда одежды. Результат превзошёл ожидания — стильно, быстро, профессионально. Рекомендую!»</div>
-          <div class="review-author">
-            <div class="review-avatar">А</div>
-            <div>
-              <div class="review-name">Анастасия</div>
-              <div class="review-role">Основатель бренда LUXE</div>
-            </div>
-          </div>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-quote">«Очень доволен сотрудничеством. Сайт получился именно таким, как я хотел. Конверсия выросла на 40% за первый месяц.»</div>
-          <div class="review-author">
-            <div class="review-avatar">М</div>
-            <div>
-              <div class="review-name">Михаил</div>
-              <div class="review-role">Владелец архитектурного бюро</div>
-            </div>
-          </div>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-quote">«Быстро, качественно, с душой. Иван учёл все пожелания и предложил отличные решения, о которых я даже не думал.»</div>
-          <div class="review-author">
-            <div class="review-avatar">Е</div>
-            <div>
-              <div class="review-name">Елена</div>
-              <div class="review-role">Эксперт по маркетингу</div>
-            </div>
-          </div>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-quote">«Лучший специалист с кем работал. Понятное общение, чёткие сроки, отличный результат. Обязательно обращусь ещё.»</div>
-          <div class="review-author">
-            <div class="review-avatar">Д</div>
-            <div>
-              <div class="review-name">Дмитрий</div>
-              <div class="review-role">CEO стартапа TechFlow</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- Отзывы -->
     <!-- Обо мне -->
     <section>
       <div class="about-block">
@@ -422,7 +398,7 @@
           requestAnimationFrame(animCursor);
         }
         animCursor();
-        document.querySelectorAll('a, button, .magnetic-btn, .portfolio-card, .telegram-btn').forEach(el => {
+          document.querySelectorAll('a, button, .magnetic-btn, .telegram-btn').forEach(el => {
           el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
           el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
         });
@@ -586,31 +562,7 @@
         });
       }
 
-      // Портфолио
-      function createPortfolio() {
-        const grid = document.getElementById('portfolio-grid');
-        const projects = [
-          {title:'Бренд одежды', desc:'Интернет-магазин премиум', img:'https://picsum.photos/seed/port1/600/400', tag:'E-COMMERCE'},
-          {title:'Эксперт маркетинг', desc:'Лендинг онлайн-курса', img:'https://picsum.photos/seed/port2/600/400', tag:'EDUCATION'},
-          {title:'Архитектурное бюро', desc:'Портфолио проектов', img:'https://picsum.photos/seed/port3/600/400', tag:'PORTFOLIO'},
-          {title:'Стартап SaaS', desc:'Продуктовый сайт', img:'https://picsum.photos/seed/port4/600/400', tag:'SAAS'},
-        ];
-        projects.forEach(p => {
-          const card = document.createElement('div'); card.className = 'portfolio-card';
-          card.innerHTML = `<div class="card-glow"></div><img src="${p.img}" alt="${p.title}" class="card-image" loading="lazy"><div class="card-overlay"><h3>${p.title}</h3><p>${p.desc}</p><span class="card-tag">${p.tag}</span></div>`;
-          grid.appendChild(card);
-          const glow = card.querySelector('.card-glow');
-          card.addEventListener('mousemove', e => {
-            const r = card.getBoundingClientRect();
-            glow.style.display='block'; glow.style.left=(e.clientX-r.left)+'px'; glow.style.top=(e.clientY-r.top)+'px'; glow.style.opacity='1';
-          });
-          card.addEventListener('mouseleave', () => { glow.style.opacity='0'; setTimeout(()=>glow.style.display='none',400); });
-        });
-      }
-      createPortfolio();
-
       document.getElementById('btn-discuss').addEventListener('click', () => lenis.scrollTo('.contact-block', {offset:0, duration:2}));
-      document.getElementById('btn-works').addEventListener('click', () => lenis.scrollTo('#portfolio-grid', {offset:-50, duration:2}));
     })();
   </script>
 </body>
