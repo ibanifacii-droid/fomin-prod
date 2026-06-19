@@ -557,6 +557,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
   <script>
+    // Скрыть загрузку сразу (без ожидания load)
+    (function() { var el = document.getElementById('loader'); if (el) el.classList.add('hidden'); })();
+
     (function() {
       const isMobile = window.innerWidth < 768 || 'ontouchstart' in window;
       document.body.classList.add(isMobile ? 'mobile' : 'desktop');
@@ -695,8 +698,9 @@
       drawBg();
 
       // --- PARTICLE GLOBE ---
-      const globeCanvas = document.getElementById('globe-canvas');
-      if (globeCanvas) {
+      try {
+        const globeCanvas = document.getElementById('globe-canvas');
+        if (globeCanvas) {
         const gCtx = globeCanvas.getContext('2d');
         let gW, gH;
 
@@ -748,7 +752,7 @@
           }).sort((a, b) => a.z - b.z);
 
           // Connections
-          gCtx.strokeStyle = 'rgba(255,255,255,0.04)'; gCtx.lineWidth = 0.5;
+          gCtx.strokeStyle = 'hsla(220,70%,60%,0.06)'; gCtx.lineWidth = 0.5;
           for (let i = 0; i < projected.length; i++) {
             for (let j = i + 1; j < projected.length; j++) {
               const dx = projected[i].sx - projected[j].sx, dy = projected[i].sy - projected[j].sy;
@@ -760,18 +764,15 @@
 
           for (const pt of projected) {
             gCtx.beginPath(); gCtx.arc(pt.sx, pt.sy, pt.size, 0, Math.PI * 2);
-            gCtx.fillStyle = `rgba(200,220,255,${pt.alpha})`; gCtx.fill();
+            const hue = 240 + pt.z * 60;
+            gCtx.fillStyle = `hsla(${hue},80%,70%,${pt.alpha})`; gCtx.fill();
           }
           gCtx.beginPath(); gCtx.arc(cx, cy, radius * 0.98, 0, Math.PI * 2);
-          gCtx.strokeStyle = 'rgba(255,255,255,0.03)'; gCtx.lineWidth = 1; gCtx.stroke();
+          gCtx.strokeStyle = 'rgba(130,140,255,0.08)'; gCtx.lineWidth = 1; gCtx.stroke();
         }
         drawGlobe();
-      }
-
-      // Загрузка
-      window.addEventListener('load', () => {
-        document.getElementById('loader').classList.add('hidden');
-      });
+        }
+      } catch(e) {}
 
       // Прогресс-бар
       window.addEventListener('scroll', () => {
