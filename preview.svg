@@ -1,88 +1,121 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="100%" stop-color="#f5f5f0"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="50%" cy="40%" r="60%">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.8)"/>
+    <radialGradient id="bg" cx="50%" cy="40%" r="85%">
+      <stop offset="0%" stop-color="#0d0d0d"/>
+      <stop offset="100%" stop-color="#000"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="50%" cy="35%" r="50%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.03)"/>
       <stop offset="100%" stop-color="transparent"/>
     </radialGradient>
-    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="transparent"/>
-      <stop offset="50%" stop-color="rgba(0,0,0,0.04)"/>
+    <radialGradient id="lampGlow" cx="50%" cy="0%" r="80%">
+      <stop offset="0%" stop-color="rgba(255,245,220,0.06)"/>
       <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(80,140,255,0.04)"/>
+      <stop offset="100%" stop-color="rgba(80,140,255,0.01)"/>
     </linearGradient>
-    <filter id="shadow">
-      <feDropShadow dx="0" dy="4" stdDeviation="12" flood-color="rgba(0,0,0,0.03)"/>
-    </filter>
-    <filter id="shadowLight">
-      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="rgba(0,0,0,0.02)"/>
-    </filter>
+    <linearGradient id="deskGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.04)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0.01)"/>
+    </linearGradient>
   </defs>
   
   <rect width="800" height="600" fill="url(#bg)"/>
   <rect width="800" height="600" fill="url(#glow)"/>
   
-  <!-- Corner accents -->
-  <rect x="0" y="0" width="1" height="200" fill="rgba(0,0,0,0.04)"/>
-  <rect x="0" y="0" width="200" height="1" fill="rgba(0,0,0,0.04)"/>
-  <rect x="799" y="0" width="1" height="200" fill="rgba(0,0,0,0.04)"/>
-  <rect x="600" y="0" width="200" height="1" fill="rgba(0,0,0,0.04)"/>
-  <rect x="0" y="599" width="1" height="200" fill="rgba(0,0,0,0.04)"/>
-  <rect x="0" y="400" width="200" height="1" fill="rgba(0,0,0,0.04)"/>
-  <rect x="799" y="599" width="1" height="200" fill="rgba(0,0,0,0.04)"/>
-  <rect x="600" y="400" width="200" height="1" fill="rgba(0,0,0,0.04)"/>
-  
-  <!-- Subtle decorative dot -->
-  <circle cx="400" cy="120" r="3" fill="rgba(0,0,0,0.04)"/>
-  
-  <!-- Tag -->
-  <rect x="340" y="150" width="120" height="26" rx="13" fill="rgba(0,0,0,0.03)" stroke="rgba(0,0,0,0.04)" stroke-width="0.5"/>
-  <text x="400" y="168" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="9" font-weight="600" letter-spacing="4" fill="rgba(0,0,0,0.2)">ВЕБ-РАЗРАБОТКА</text>
-  
-  <!-- Main brand -->
-  <text x="400" y="240" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="72" font-weight="900" letter-spacing="-4" fill="#111">FOMIN</text>
-  <text x="400" y="300" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="72" font-weight="200" letter-spacing="6" fill="#222">PROD</text>
-  
-  <!-- Divider -->
-  <rect x="350" y="320" width="100" height="1" fill="url(#line)"/>
-  
-  <!-- Description -->
-  <text x="400" y="350" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="12" font-weight="400" fill="rgba(0,0,0,0.25)">Сайты под ключ для вашего бизнеса</text>
-  
-  <!-- Pricing row -->
-  <g filter="url(#shadowLight)">
-    <rect x="45" y="385" width="220" height="105" rx="12" fill="white" stroke="rgba(0,0,0,0.04)" stroke-width="0.5"/>
-    <text x="155" y="420" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="8" font-weight="600" letter-spacing="4" fill="rgba(0,0,0,0.15)">СТАРТ</text>
-    <text x="155" y="455" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="28" font-weight="800" fill="#111">5 000 ₽</text>
-    <text x="155" y="475" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="9" font-weight="400" fill="rgba(0,0,0,0.15)">Лендинг · 3 дня</text>
+  <!-- Background design elements -->
+  <g opacity="0.08">
+    <!-- Grid -->
+    <line x1="0" y1="100" x2="800" y2="100" stroke="rgba(255,255,255,0.3)" stroke-width="0.3"/>
+    <line x1="0" y1="200" x2="800" y2="200" stroke="rgba(255,255,255,0.3)" stroke-width="0.3"/>
+    <line x1="0" y1="300" x2="800" y2="300" stroke="rgba(255,255,255,0.3)" stroke-width="0.3"/>
+    <line x1="200" y1="0" x2="200" y2="600" stroke="rgba(255,255,255,0.3)" stroke-width="0.3"/>
+    <line x1="400" y1="0" x2="400" y2="600" stroke="rgba(255,255,255,0.3)" stroke-width="0.3"/>
+    <line x1="600" y1="0" x2="600" y2="600" stroke="rgba(255,255,255,0.3)" stroke-width="0.3"/>
+    
+    <!-- Abstract circles -->
+    <circle cx="680" cy="80" r="60" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"/>
+    <circle cx="120" cy="500" r="40" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"/>
+    <circle cx="680" cy="80" r="80" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.3"/>
   </g>
   
-  <g filter="url(#shadow)">
-    <rect x="290" y="385" width="220" height="105" rx="12" fill="white" stroke="rgba(0,0,0,0.06)" stroke-width="0.5"/>
-    <text x="400" y="420" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="8" font-weight="600" letter-spacing="4" fill="rgba(0,0,0,0.15)">ОПТИМА</text>
-    <text x="400" y="455" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="28" font-weight="800" fill="#111">10 000 ₽</text>
-    <text x="400" y="475" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="9" font-weight="400" fill="rgba(0,0,0,0.15)">Многостраничный · 7 дней</text>
+  <!-- Wireframe/UI design elements on background -->
+  <g opacity="0.04" transform="translate(60,40)">
+    <rect x="0" y="0" width="180" height="130" rx="8" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="0.5"/>
+    <line x1="15" y1="20" x2="165" y2="20" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round"/>
+    <rect x="15" y="35" width="150" height="80" rx="4" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="0.4"/>
+    <line x1="15" y1="65" x2="120" y2="65" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="15" y1="80" x2="140" y2="80" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="15" y1="95" x2="100" y2="95" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-linecap="round"/>
   </g>
   
-  <g filter="url(#shadowLight)">
-    <rect x="535" y="385" width="220" height="105" rx="12" fill="white" stroke="rgba(0,0,0,0.04)" stroke-width="0.5"/>
-    <text x="645" y="420" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="8" font-weight="600" letter-spacing="4" fill="rgba(0,0,0,0.15)">ПРЕМИУМ</text>
-    <text x="645" y="455" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="28" font-weight="800" fill="#111">15 000 ₽</text>
-    <text x="645" y="475" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="9" font-weight="400" fill="rgba(0,0,0,0.15)">Под ключ · до 14 дней</text>
+  <g opacity="0.03" transform="translate(560,420)">
+    <rect x="0" y="0" width="160" height="110" rx="6" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="0.5"/>
+    <circle cx="80" cy="55" r="30" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="0.5"/>
+    <line x1="80" y1="35" x2="80" y2="45" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+    <line x1="70" y1="55" x2="90" y2="55" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
   </g>
   
-  <!-- Bottom info -->
-  <text x="400" y="528" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="9" font-weight="400" fill="rgba(0,0,0,0.12)">
-    <tspan>Договор</tspan>
-    <tspan dx="12" fill="rgba(0,0,0,0.03)">·</tspan>
-    <tspan dx="12">Предоплата 50%</tspan>
-    <tspan dx="12" fill="rgba(0,0,0,0.03)">·</tspan>
-    <tspan dx="12">Бесплатные правки</tspan>
-  </text>
+  <!-- Desk area -->
+  <rect x="0" y="370" width="800" height="8" fill="rgba(255,255,255,0.06)" rx="2"/>
+  <rect x="0" y="378" width="800" height="222" fill="url(#deskGrad)"/>
   
-  <!-- CTA -->
-  <rect x="290" y="548" width="220" height="34" rx="17" fill="#111" stroke="none"/>
-  <text x="400" y="570" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="11" font-weight="600" fill="white">Связаться — @vfominq</text>
+  <!-- Lamp glow above desk -->
+  <rect x="0" y="0" width="800" height="400" fill="url(#lampGlow)"/>
+  
+  <!-- Person sitting -->
+  <g opacity="0.12">
+    <!-- Head -->
+    <ellipse cx="220" cy="240" rx="20" ry="22" fill="rgba(255,255,255,0.5)"/>
+    <!-- Body -->
+    <path d="M200 265 Q210 320 195 370 L245 370 Q240 320 240 265 Z" fill="rgba(255,255,255,0.4)"/>
+    <!-- Arm reaching to laptop -->
+    <path d="M240 280 Q280 290 310 310" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="6" stroke-linecap="round"/>
+    <path d="M200 285 Q180 310 170 340" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  
+  <!-- MacBook - top-down angled view -->
+  <g transform="translate(340, 230) rotate(-5)">
+    <!-- Base -->
+    <path d="M-5 90 L200 90 L210 0 L-15 0 Z" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <rect x="0" y="8" width="190" height="78" rx="3" fill="url(#screen)"/>
+    
+    <!-- Screen content -->
+    <line x1="15" y1="20" x2="175" y2="20" stroke="rgba(255,255,255,0.06)" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="15" y1="30" x2="130" y2="30" stroke="rgba(255,255,255,0.03)" stroke-width="1" stroke-linecap="round"/>
+    <rect x="15" y="40" width="160" height="35" rx="2" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.03)" stroke-width="0.3"/>
+    <line x1="25" y1="50" x2="100" y2="50" stroke="rgba(255,255,255,0.03)" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="25" y1="60" x2="120" y2="60" stroke="rgba(255,255,255,0.03)" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="25" y1="70" x2="80" y2="70" stroke="rgba(255,255,255,0.02)" stroke-width="1" stroke-linecap="round"/>
+    
+    <!-- Keyboard area -->
+    <rect x="30" y="90" width="130" height="25" rx="2" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
+    
+    <!-- Trackpad -->
+    <rect x="65" y="120" width="60" height="25" rx="2" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.3"/>
+  </g>
+  
+  <!-- Desk items -->
+  <!-- Coffee cup -->
+  <g opacity="0.1" transform="translate(580, 340)">
+    <rect x="0" y="0" width="22" height="28" rx="3" fill="rgba(255,255,255,0.4)"/>
+    <path d="M22 8 Q30 8 30 15 Q30 22 22 22" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+  </g>
+  
+  <!-- Phone on desk -->
+  <g opacity="0.08" transform="translate(500, 355) rotate(15)">
+    <rect x="0" y="0" width="16" height="28" rx="2" fill="rgba(255,255,255,0.4)"/>
+    <circle cx="8" cy="24" r="1.5" fill="rgba(255,255,255,0.2)"/>
+  </g>
+  
+  <!-- Brand -->
+  <text x="400" y="440" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="48" font-weight="900" letter-spacing="-2" fill="white" opacity="0.9">FOMIN PROD</text>
+  <text x="400" y="470" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="11" font-weight="400" letter-spacing="4" fill="rgba(255,255,255,0.15)">РАЗРАБОТКА САЙТОВ</text>
+  
+  <!-- CTA line -->
+  <rect x="290" y="490" width="220" height="1" fill="rgba(255,255,255,0.06)"/>
+  
+  <text x="400" y="515" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="10" font-weight="400" fill="rgba(255,255,255,0.1)">Связь — @vfominq</text>
 </svg>
