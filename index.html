@@ -76,6 +76,9 @@
       font-size:clamp(2.8rem,10vw,7.5rem);
       line-height:1.02; margin-bottom:1.5rem;
       font-weight:800; letter-spacing:-0.04em; overflow:hidden;
+      background:linear-gradient(135deg,#fff 40%,rgba(255,255,255,0.5));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text;
     }
     .hero-title .word { display:inline-block; white-space:nowrap; margin-right:0.15em; }
     .hero-title .char { display:inline-block; opacity:0; transform:translateY(70px); }
@@ -198,21 +201,53 @@
     .faq-item.open .faq-answer { max-height:200px; padding:0 0 1.2rem; }
     .faq-answer a { color:#fff; text-decoration:underline; }
 
-    /* ---------- TIMELINE ---------- */
-    .services-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.5rem; margin-top:1.5rem; }
-    @media (max-width:600px) { .services-grid { grid-template-columns:1fr; } }
-    .service-card {
-      background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius:28px;
-      padding:2rem 1.8rem; position:relative; transition:border-color .3s,background .3s,transform .3s;
+    /* ---------- REVIEWS PLACEHOLDER ---------- */
+    .reviews-cta {
+      text-align:center; padding:3rem 2rem;
+      border:1px solid rgba(255,255,255,0.08); border-radius:28px;
+      background:rgba(255,255,255,0.01); margin-top:1.5rem;
     }
-    .service-card:hover { border-color:rgba(255,255,255,0.25); background:rgba(255,255,255,0.03); transform:translateY(-4px); }
-    .service-icon { width:44px; height:44px; margin-bottom:1.2rem; color:rgba(255,255,255,0.6); }
-    .service-icon svg { width:44px; height:44px; }
-    .service-title { font-family:var(--font-heading); font-size:clamp(1.4rem,4vw,1.8rem); font-weight:700; margin-bottom:0.5rem; letter-spacing:-0.02em; }
-    .service-desc { color:#8a8a8a; font-size:clamp(0.9rem,2.5vw,1rem); line-height:1.5; margin-bottom:1.5rem; }
-    .service-price { font-family:var(--font-heading); font-size:clamp(1.3rem,4vw,1.6rem); font-weight:700; color:#fff; letter-spacing:-0.02em; }
+    .reviews-cta p { color:#8a8a8a; font-size:clamp(1rem,3vw,1.15rem); margin-bottom:1.5rem; line-height:1.5; }
 
-    /* ---------- FOOTER ---------- */
+    /* ---------- DONATE ---------- */
+    .donate-block { text-align:center; margin-top:2rem; }
+    .donate-btn {
+      display:inline-flex; align-items:center; gap:0.6rem;
+      font-size:clamp(1rem,3.5vw,1.2rem); font-weight:600; padding:1rem 2rem;
+      border:1px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.02);
+      border-radius:60px; transition:all .4s; color:#fff; text-decoration:none;
+      backdrop-filter:blur(12px); font-family:var(--font-body); cursor:pointer;
+    }
+    .donate-btn:hover { border-color:rgba(255,255,255,0.6); background:rgba(255,255,255,0.05); box-shadow:0 0 30px rgba(124,58,237,0.2); }
+    .donate-card {
+      margin-top:1rem; display:none; 
+      background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08);
+      border-radius:20px; padding:1.5rem 2rem; max-width:360px; margin-left:auto; margin-right:auto;
+      backdrop-filter:blur(12px);
+    }
+    .donate-card.show { display:block; }
+    .donate-card p { color:#b0b0b0; font-size:0.9rem; margin-bottom:0.5rem; }
+    .donate-card .card-number {
+      font-family:monospace; font-size:1.3rem; font-weight:700; letter-spacing:0.1em;
+      color:#fff; cursor:pointer; padding:0.5rem; border-radius:12px; transition:background .3s;
+    }
+    .donate-card .card-number:hover { background:rgba(255,255,255,0.05); }
+    .donate-card .copied { font-size:0.8rem; color:#7c3aed; margin-top:0.3rem; display:none; }
+
+    /* ---------- SCROLL TO TOP ---------- */
+    .scroll-top {
+      position:fixed; bottom:2rem; right:2rem; z-index:999;
+      width:48px; height:48px; border-radius:50%;
+      background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.15);
+      color:#fff; font-size:1.2rem; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      transition:all .4s; opacity:0; pointer-events:none;
+      backdrop-filter:blur(12px);
+    }
+    .scroll-top.visible { opacity:1; pointer-events:auto; }
+    .scroll-top:hover { background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.3); transform:scale(1.1); }
+
+    /* ---------- TIMELINE ---------- */
     .site-footer { text-align:center; padding:2rem 0 4rem; border-top:1px solid rgba(255,255,255,0.05); margin-top:2rem; }
     .footer-links { display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; margin-bottom:1.5rem; }
     .footer-icon {
@@ -255,6 +290,7 @@
   <div class="cursor" id="cursor"></div>
   <div class="cursor-dot" id="cursor-dot"></div>
   <canvas id="bg-canvas"></canvas>
+  <button class="scroll-top" id="scroll-top" onclick="scrollToTop()">↑</button>
 
   <div class="main-content">
     <!-- Hero -->
@@ -406,13 +442,23 @@
       </div>
     </section>
 
+    <!-- Оставить отзыв -->
+    <section>
+      <div class="section-header">
+        <h2 class="section-title">Отзывы</h2>
+      </div>
+      <div class="reviews-cta">
+        <p>Ваше мнение важно для меня. Если вам понравилась работа — напишите отзыв, я буду благодарен!</p>
+        <a href="https://t.me/vfominq" target="_blank" class="magnetic-btn primary">Написать отзыв</a>
+      </div>
+    </section>
+
     <!-- Обо мне -->
     <section>
       <div class="about-block">
         <div class="about-text">
           Меня зовут Иван Фомин. Разрабатываю современные сайты и лендинги, которые помогают бизнесу привлекать клиентов и выделяться среди конкурентов.
         </div>
-        <div class="about-badge">с 2018 года</div>
       </div>
     </section>
 
@@ -420,6 +466,22 @@
     <section class="contact-block">
       <h2 class="contact-title">Готовы обсудить проект?</h2>
       <a href="https://t.me/vfominq" target="_blank" class="magnetic-btn telegram-btn" id="telegram-btn">Telegram: @vfominq</a>
+    </section>
+
+    <!-- Поддержать -->
+    <section style="padding:0 0 4rem">
+      <div class="donate-block">
+        <button class="donate-btn" onclick="toggleDonate()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l2.5 6.5L21 9l-5 4.5L17.5 21 12 16.5 6.5 21 8 13.5 3 9l6.5-.5z"/></svg>
+          Поддержать автора
+        </button>
+        <div class="donate-card" id="donate-card">
+          <p>Перевод на карту Сбер / Тинькофф</p>
+          <div class="card-number" id="card-number" onclick="copyCard(this)">2200 0000 0000 0000</div>
+          <div class="copied" id="copied-msg">✓ Номер скопирован</div>
+          <p style="margin-top:1rem; font-size:0.8rem; color:#7a7a7a;">Нажмите на номер, чтобы скопировать</p>
+        </div>
+      </div>
     </section>
 
     <!-- Подвал с соцсетями -->
@@ -628,10 +690,39 @@
       }
 
       document.getElementById('btn-discuss').addEventListener('click', () => lenis.scrollTo('.contact-block', {offset:0, duration:2}));
+      const btnWorks = document.getElementById('btn-works');
+      if (btnWorks) btnWorks.addEventListener('click', () => lenis.scrollTo('.portfolio-placeholder', {offset:-50, duration:2}));
+
+      // Анимация карточек услуг
+      gsap.utils.toArray('.service-card').forEach((c,i)=>gsap.from(c,{scrollTrigger:{trigger:c,start:'top bottom-=50'},opacity:0,y:40,duration:0.6,delay:i*0.1,ease:'power2.out'}));
+
+      // Анимация FAQ
+      gsap.utils.toArray('.faq-item').forEach((c,i)=>gsap.from(c,{scrollTrigger:{trigger:c,start:'top bottom-=30'},opacity:0,x:-20,duration:0.5,delay:i*0.08,ease:'power2.out'}));
+
+      // Скролл-топ
+      const scrollBtn = document.getElementById('scroll-top');
+      window.addEventListener('scroll', () => {
+        scrollBtn.classList.toggle('visible', window.scrollY > 600);
+      });
     })();
 
     function toggleFaq(btn) {
       btn.parentElement.classList.toggle('open');
+    }
+
+    function toggleDonate() {
+      document.getElementById('donate-card').classList.toggle('show');
+    }
+
+    function copyCard(el) {
+      const text = el.textContent.replace(/\s/g, '');
+      navigator.clipboard.writeText(text);
+      document.getElementById('copied-msg').style.display = 'block';
+      setTimeout(() => { document.getElementById('copied-msg').style.display = 'none'; }, 2000);
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
 </body>
