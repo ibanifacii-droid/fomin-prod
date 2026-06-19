@@ -1,157 +1,88 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
   <defs>
-    <!-- Background gradient with subtle warmth -->
-    <radialGradient id="bg" cx="50%" cy="40%" r="85%">
-      <stop offset="0%" stop-color="#111111"/>
-      <stop offset="60%" stop-color="#050505"/>
-      <stop offset="100%" stop-color="#000000"/>
-    </radialGradient>
-    
-    <!-- Main glow -->
-    <radialGradient id="mainGlow" cx="50%" cy="30%" r="45%">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.05)"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f5f5f0"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.8)"/>
       <stop offset="100%" stop-color="transparent"/>
     </radialGradient>
-    
-    <!-- Warm accent glow -->
-    <radialGradient id="warmGlow" cx="50%" cy="50%" r="35%">
-      <stop offset="0%" stop-color="rgba(255,245,230,0.025)"/>
-      <stop offset="100%" stop-color="transparent"/>
-    </radialGradient>
-    
-    <!-- Subtle blue/cool secondary -->
-    <radialGradient id="coolGlow" cx="70%" cy="70%" r="30%">
-      <stop offset="0%" stop-color="rgba(230,240,255,0.015)"/>
-      <stop offset="100%" stop-color="transparent"/>
-    </radialGradient>
-    
-    <!-- Divider line -->
-    <linearGradient id="divider" x1="0" y1="0" x2="1" y2="0">
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%" stop-color="transparent"/>
-      <stop offset="50%" stop-color="rgba(255,255,255,0.06)"/>
+      <stop offset="50%" stop-color="rgba(0,0,0,0.04)"/>
       <stop offset="100%" stop-color="transparent"/>
     </linearGradient>
-    
-    <!-- Card gradient -->
-    <linearGradient id="cardGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.03)"/>
-      <stop offset="100%" stop-color="rgba(255,255,255,0.008)"/>
-    </linearGradient>
-    
-    <linearGradient id="cardBorder" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.06)"/>
-      <stop offset="50%" stop-color="rgba(255,255,255,0.03)"/>
-      <stop offset="100%" stop-color="rgba(255,255,255,0.06)"/>
-    </linearGradient>
-    
-    <!-- Gradient for the device screen glow -->
-    <linearGradient id="screenGlow" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.03)"/>
-      <stop offset="100%" stop-color="rgba(255,255,255,0.01)"/>
-    </linearGradient>
-    
-    <filter id="softGlow">
-      <feGaussianBlur stdDeviation="2" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="12" flood-color="rgba(0,0,0,0.03)"/>
+    </filter>
+    <filter id="shadowLight">
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="rgba(0,0,0,0.02)"/>
     </filter>
   </defs>
   
-  <!-- Background -->
   <rect width="800" height="600" fill="url(#bg)"/>
-  <rect width="800" height="600" fill="url(#mainGlow)"/>
-  <rect width="800" height="600" fill="url(#warmGlow)"/>
-  <rect width="800" height="600" fill="url(#coolGlow)"/>
+  <rect width="800" height="600" fill="url(#glow)"/>
   
-  <!-- Subtle grid lines -->
-  <line x1="0" y1="200" x2="800" y2="200" stroke="rgba(255,255,255,0.008)" stroke-width="0.5"/>
-  <line x1="0" y1="400" x2="800" y2="400" stroke="rgba(255,255,255,0.008)" stroke-width="0.5"/>
-  <line x1="266" y1="0" x2="266" y2="600" stroke="rgba(255,255,255,0.005)" stroke-width="0.5"/>
-  <line x1="533" y1="0" x2="533" y2="600" stroke="rgba(255,255,255,0.005)" stroke-width="0.5"/>
+  <!-- Corner accents -->
+  <rect x="0" y="0" width="1" height="200" fill="rgba(0,0,0,0.04)"/>
+  <rect x="0" y="0" width="200" height="1" fill="rgba(0,0,0,0.04)"/>
+  <rect x="799" y="0" width="1" height="200" fill="rgba(0,0,0,0.04)"/>
+  <rect x="600" y="0" width="200" height="1" fill="rgba(0,0,0,0.04)"/>
+  <rect x="0" y="599" width="1" height="200" fill="rgba(0,0,0,0.04)"/>
+  <rect x="0" y="400" width="200" height="1" fill="rgba(0,0,0,0.04)"/>
+  <rect x="799" y="599" width="1" height="200" fill="rgba(0,0,0,0.04)"/>
+  <rect x="600" y="400" width="200" height="1" fill="rgba(0,0,0,0.04)"/>
   
-  <!-- Decorative rings -->
-  <circle cx="400" cy="180" r="260" fill="none" stroke="rgba(255,255,255,0.01)" stroke-width="0.6"/>
-  <circle cx="400" cy="180" r="200" fill="none" stroke="rgba(255,255,255,0.005)" stroke-width="0.4"/>
+  <!-- Subtle decorative dot -->
+  <circle cx="400" cy="120" r="3" fill="rgba(0,0,0,0.04)"/>
   
-  <!-- Laptop mockup -->
-  <g opacity="0.45">
-    <!-- screen -->
-    <rect x="300" y="50" width="200" height="130" rx="6" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.8"/>
-    <rect x="305" y="72" width="190" height="85" rx="2" fill="url(#screenGlow)" stroke="rgba(255,255,255,0.02)" stroke-width="0.3"/>
-    <!-- screen content -->
-    <line x1="315" y1="85" x2="485" y2="85" stroke="rgba(255,255,255,0.03)" stroke-width="2" stroke-linecap="round"/>
-    <line x1="315" y1="97" x2="440" y2="97" stroke="rgba(255,255,255,0.015)" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="315" y1="109" x2="460" y2="109" stroke="rgba(255,255,255,0.015)" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="315" y1="121" x2="420" y2="121" stroke="rgba(255,255,255,0.015)" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="315" y1="133" x2="455" y2="133" stroke="rgba(255,255,255,0.015)" stroke-width="1.5" stroke-linecap="round"/>
-    <rect x="315" y="140" width="170" height="10" rx="2" fill="rgba(255,255,255,0.01)"/>
-    <!-- bottom bar -->
-    <rect x="300" y="180" width="200" height="3" rx="1" fill="rgba(255,255,255,0.03)"/>
-  </g>
-  
-  <!-- Phone mockup -->
-  <g opacity="0.3">
-    <rect x="378" y="25" width="44" height="80" rx="6" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="0.6"/>
-    <rect x="382" y="42" width="36" height="48" rx="2" fill="none" stroke="rgba(255,255,255,0.015)" stroke-width="0.3"/>
-    <line x1="386" y1="48" x2="414" y2="48" stroke="rgba(255,255,255,0.02)" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="386" y1="56" x2="400" y2="56" stroke="rgba(255,255,255,0.015)" stroke-width="1" stroke-linecap="round"/>
-    <circle cx="400" cy="98" r="3" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="0.3"/>
-  </g>
-  
-  <!-- Top fine print -->
-  <text x="400" y="225" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="9" font-weight="500" letter-spacing="8" fill="rgba(255,255,255,0.12)">ВЕБ-РАЗРАБОТКА</text>
-  
-  <!-- Logo glow behind text -->
-  <text x="400" y="280" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="60" font-weight="900" letter-spacing="-3" fill="rgba(255,255,255,0.03)" filter="url(#softGlow)">FOMIN PROD</text>
+  <!-- Tag -->
+  <rect x="340" y="150" width="120" height="26" rx="13" fill="rgba(0,0,0,0.03)" stroke="rgba(0,0,0,0.04)" stroke-width="0.5"/>
+  <text x="400" y="168" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="9" font-weight="600" letter-spacing="4" fill="rgba(0,0,0,0.2)">ВЕБ-РАЗРАБОТКА</text>
   
   <!-- Main brand -->
-  <text x="400" y="280" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="60" font-weight="900" letter-spacing="-3" fill="white">FOMIN PROD</text>
-  
-  <!-- Tagline -->
-  <text x="400" y="315" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="13" font-weight="400" fill="rgba(255,255,255,0.25)" letter-spacing="2">Сайты, которые приносят клиентов</text>
+  <text x="400" y="240" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="72" font-weight="900" letter-spacing="-4" fill="#111">FOMIN</text>
+  <text x="400" y="300" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="72" font-weight="200" letter-spacing="6" fill="#222">PROD</text>
   
   <!-- Divider -->
-  <rect x="320" y="335" width="160" height="1" fill="url(#divider)"/>
+  <rect x="350" y="320" width="100" height="1" fill="url(#line)"/>
   
-  <!-- Pricing section label -->
-  <text x="400" y="358" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="9" font-weight="600" letter-spacing="5" fill="rgba(255,255,255,0.12)">ТАРИФЫ</text>
+  <!-- Description -->
+  <text x="400" y="350" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="12" font-weight="400" fill="rgba(0,0,0,0.25)">Сайты под ключ для вашего бизнеса</text>
   
-  <!-- Card 1: Start -->
-  <g>
-    <rect x="45" y="378" width="220" height="118" rx="16" fill="url(#cardGrad)" stroke="url(#cardBorder)" stroke-width="0.6"/>
-    <text x="155" y="410" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="9" font-weight="600" letter-spacing="5" fill="rgba(255,255,255,0.18)">СТАРТ</text>
-    <text x="155" y="448" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="30" font-weight="800" fill="white">5 000 ₽</text>
-    <text x="155" y="475" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="10" font-weight="400" fill="rgba(255,255,255,0.15)">Лендинг · 3 дня</text>
+  <!-- Pricing row -->
+  <g filter="url(#shadowLight)">
+    <rect x="45" y="385" width="220" height="105" rx="12" fill="white" stroke="rgba(0,0,0,0.04)" stroke-width="0.5"/>
+    <text x="155" y="420" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="8" font-weight="600" letter-spacing="4" fill="rgba(0,0,0,0.15)">СТАРТ</text>
+    <text x="155" y="455" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="28" font-weight="800" fill="#111">5 000 ₽</text>
+    <text x="155" y="475" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="9" font-weight="400" fill="rgba(0,0,0,0.15)">Лендинг · 3 дня</text>
   </g>
   
-  <!-- Card 2: Оптима (highlighted) -->
-  <g>
-    <rect x="290" y="378" width="220" height="118" rx="16" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
-    <text x="400" y="410" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="9" font-weight="600" letter-spacing="5" fill="rgba(255,255,255,0.2)">ОПТИМА</text>
-    <text x="400" y="448" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="30" font-weight="800" fill="white">10 000 ₽</text>
-    <text x="400" y="475" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="10" font-weight="400" fill="rgba(255,255,255,0.15)">Многостраничный · 7 дней</text>
+  <g filter="url(#shadow)">
+    <rect x="290" y="385" width="220" height="105" rx="12" fill="white" stroke="rgba(0,0,0,0.06)" stroke-width="0.5"/>
+    <text x="400" y="420" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="8" font-weight="600" letter-spacing="4" fill="rgba(0,0,0,0.15)">ОПТИМА</text>
+    <text x="400" y="455" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="28" font-weight="800" fill="#111">10 000 ₽</text>
+    <text x="400" y="475" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="9" font-weight="400" fill="rgba(0,0,0,0.15)">Многостраничный · 7 дней</text>
   </g>
   
-  <!-- Card 3: Премиум -->
-  <g>
-    <rect x="535" y="378" width="220" height="118" rx="16" fill="url(#cardGrad)" stroke="url(#cardBorder)" stroke-width="0.6"/>
-    <text x="645" y="410" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="9" font-weight="600" letter-spacing="5" fill="rgba(255,255,255,0.18)">ПРЕМИУМ</text>
-    <text x="645" y="448" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="30" font-weight="800" fill="white">15 000 ₽</text>
-    <text x="645" y="475" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="10" font-weight="400" fill="rgba(255,255,255,0.15)">Под ключ · до 14 дней</text>
+  <g filter="url(#shadowLight)">
+    <rect x="535" y="385" width="220" height="105" rx="12" fill="white" stroke="rgba(0,0,0,0.04)" stroke-width="0.5"/>
+    <text x="645" y="420" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="8" font-weight="600" letter-spacing="4" fill="rgba(0,0,0,0.15)">ПРЕМИУМ</text>
+    <text x="645" y="455" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="28" font-weight="800" fill="#111">15 000 ₽</text>
+    <text x="645" y="475" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="9" font-weight="400" fill="rgba(0,0,0,0.15)">Под ключ · до 14 дней</text>
   </g>
   
-  <!-- Conditions -->
-  <text x="400" y="530" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="10" font-weight="400" fill="rgba(255,255,255,0.1)">
-    <tspan>Работа по договору</tspan>
-    <tspan dx="15" fill="rgba(255,255,255,0.04)">·</tspan>
-    <tspan dx="15">Предоплата 50%</tspan>
-    <tspan dx="15" fill="rgba(255,255,255,0.04)">·</tspan>
-    <tspan dx="15">Бесплатные правки</tspan>
+  <!-- Bottom info -->
+  <text x="400" y="528" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="9" font-weight="400" fill="rgba(0,0,0,0.12)">
+    <tspan>Договор</tspan>
+    <tspan dx="12" fill="rgba(0,0,0,0.03)">·</tspan>
+    <tspan dx="12">Предоплата 50%</tspan>
+    <tspan dx="12" fill="rgba(0,0,0,0.03)">·</tspan>
+    <tspan dx="12">Бесплатные правки</tspan>
   </text>
   
-  <!-- CTA Button -->
-  <rect x="280" y="548" width="240" height="36" rx="18" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="0.6"/>
-  <text x="400" y="571" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="12" font-weight="600" fill="rgba(255,255,255,0.3)">Связаться — @vfominq</text>
+  <!-- CTA -->
+  <rect x="290" y="548" width="220" height="34" rx="17" fill="#111" stroke="none"/>
+  <text x="400" y="570" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Arial,sans-serif" font-size="11" font-weight="600" fill="white">Связаться — @vfominq</text>
 </svg>
