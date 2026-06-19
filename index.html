@@ -20,6 +20,16 @@
     }
     html { font-size:16px; }
     @media (max-width:480px) { html { font-size:14px; } }
+
+    /* ---------- LOADING SCREEN ---------- */
+    .loader { position:fixed; top:0; left:0; width:100%; height:100%; z-index:10001; background:var(--bg); display:flex; align-items:center; justify-content:center; flex-direction:column; transition:opacity .8s,visibility .8s; }
+    .loader.hidden { opacity:0; visibility:hidden; pointer-events:none; }
+    .loader-ring { width:48px; height:48px; border:2px solid rgba(255,255,255,0.08); border-top-color:#fff; border-radius:50%; animation:spin 0.8s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    .loader-text { margin-top:1.2rem; font-size:0.85rem; color:#5a5a5a; letter-spacing:0.2em; text-transform:uppercase; }
+
+    /* ---------- PROGRESS BAR ---------- */
+    .progress-bar { position:fixed; top:0; left:0; width:0; height:2px; z-index:10000; background:linear-gradient(90deg,var(--accent1),var(--accent2)); transition:width .1s; }
     body {
       background:var(--bg); color:var(--white);
       font-family:var(--font-body); overflow-x:hidden;
@@ -168,6 +178,18 @@
     .section-header { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:2rem; flex-wrap:wrap; gap:0.5rem; }
     .section-title { font-size:clamp(2rem,7vw,3.8rem); font-weight:700; letter-spacing:-0.03em; }
 
+    /* ---------- GLOBE SECTION ---------- */
+    .globe-section { position:relative; overflow:hidden; min-height:70vh; display:flex; align-items:center; justify-content:center; text-align:center; }
+    .globe-canvas { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:600px; height:600px; pointer-events:none; z-index:0; }
+    @media (max-width:768px) { .globe-canvas { width:380px; height:380px; } }
+    @media (max-width:480px) { .globe-canvas { width:300px; height:300px; } }
+    .globe-content { position:relative; z-index:1; }
+    .globe-label { font-family:var(--font-heading); font-size:clamp(2rem,7vw,4rem); font-weight:800; letter-spacing:-0.03em; margin-bottom:1rem; background:linear-gradient(135deg,#fff 30%,rgba(255,255,255,0.4)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .globe-sub { color:#7a7a7a; font-size:clamp(1rem,3vw,1.2rem); letter-spacing:0.05em; text-transform:uppercase; }
+    .tech-list { display:flex; flex-wrap:wrap; justify-content:center; gap:1rem; margin-top:2.5rem; position:relative; z-index:1; }
+    .tech-item { font-family:var(--font-heading); font-size:0.85rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; padding:0.5rem 1.2rem; border:1px solid rgba(255,255,255,0.12); border-radius:30px; background:rgba(255,255,255,0.02); backdrop-filter:blur(8px); transition:border-color .3s,background .3s; }
+    .tech-item:hover { border-color:rgba(255,255,255,0.3); background:rgba(255,255,255,0.05); }
+
     /* ---------- PORTFOLIO PLACEHOLDER ---------- */
     .portfolio-placeholder {
       text-align:center; padding:3rem 2rem;
@@ -247,6 +269,9 @@
     .scroll-top.visible { opacity:1; pointer-events:auto; }
     .scroll-top:hover { background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.3); transform:scale(1.1); }
 
+    /* ---------- SECTION DIVIDER ---------- */
+    .section-divider { width:100%; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent); margin:0; border:none; }
+
     /* ---------- TIMELINE ---------- */
     .site-footer { text-align:center; padding:2rem 0 4rem; border-top:1px solid rgba(255,255,255,0.05); margin-top:2rem; }
     .footer-links { display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; margin-bottom:1.5rem; }
@@ -287,6 +312,11 @@
 </head>
 <body>
 
+  <div class="loader" id="loader">
+    <div class="loader-ring"></div>
+    <div class="loader-text">Загрузка</div>
+  </div>
+  <div class="progress-bar" id="progress-bar"></div>
   <div class="cursor" id="cursor"></div>
   <div class="cursor-dot" id="cursor-dot"></div>
   <canvas id="bg-canvas"></canvas>
@@ -329,6 +359,27 @@
         &nbsp; DESIGN &nbsp;/&nbsp; DEVELOPMENT &nbsp;/&nbsp; SEO &nbsp;/&nbsp; PERFORMANCE &nbsp;/&nbsp; ADAPTIVE &nbsp;/&nbsp; UNIQUE CODE &nbsp;/&nbsp; REACT &nbsp;/&nbsp; GSAP &nbsp;/&nbsp; THREE.JS &nbsp;/&nbsp; WEBFLOW &nbsp;/&nbsp; FIGMA &nbsp;/
       </div>
     </div>
+
+    <!-- Технологии -->
+    <section class="globe-section" id="globe-section">
+      <canvas id="globe-canvas" class="globe-canvas"></canvas>
+      <div class="globe-content">
+        <div class="globe-label">Технологии</div>
+        <div class="globe-sub">Современный стек</div>
+        <div class="tech-list">
+          <span class="tech-item">React</span>
+          <span class="tech-item">Next.js</span>
+          <span class="tech-item">TypeScript</span>
+          <span class="tech-item">Node.js</span>
+          <span class="tech-item">Three.js</span>
+          <span class="tech-item">GSAP</span>
+          <span class="tech-item">Tailwind</span>
+          <span class="tech-item">Figma</span>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
 
     <!-- Преимущества -->
     <section>
@@ -644,6 +695,92 @@
         requestAnimationFrame(drawBg);
       }
       drawBg();
+
+      // --- PARTICLE GLOBE ---
+      const globeCanvas = document.getElementById('globe-canvas');
+      if (globeCanvas) {
+        const gCtx = globeCanvas.getContext('2d');
+        let gW, gH;
+
+        function resizeGlobe() {
+          const rect = globeCanvas.parentElement.getBoundingClientRect();
+          const s = Math.min(600, rect.width * 0.85);
+          globeCanvas.width = s * 2; globeCanvas.height = s * 2;
+          globeCanvas.style.width = s + 'px'; globeCanvas.style.height = s + 'px';
+          gW = globeCanvas.width; gH = globeCanvas.height;
+        }
+        resizeGlobe();
+        window.addEventListener('resize', resizeGlobe);
+
+        const R = gW * 0.35;
+        const points = [];
+        const numPts = 400;
+        const phi = Math.PI * (3 - Math.sqrt(5));
+        for (let i = 0; i < numPts; i++) {
+          const y = 1 - (i / (numPts - 1)) * 2;
+          const rAtY = Math.sqrt(1 - y * y);
+          const theta = phi * i;
+          points.push({ x: Math.cos(theta) * rAtY, y, z: Math.sin(theta) * rAtY });
+        }
+
+        let gAngle = 0, gMouseX = 0, gMouseY = 0;
+        globeCanvas.parentElement.addEventListener('mousemove', e => {
+          const r = globeCanvas.parentElement.getBoundingClientRect();
+          gMouseX = (e.clientX - r.left) / r.width - 0.5;
+          gMouseY = (e.clientY - r.top) / r.height - 0.5;
+        });
+
+        function drawGlobe() {
+          requestAnimationFrame(drawGlobe);
+          gW = globeCanvas.width; gH = globeCanvas.height;
+          gCtx.clearRect(0, 0, gW, gH);
+          const cx = gW / 2, cy = gH / 2;
+          const radius = Math.min(gW, gH) * 0.38;
+          gAngle += 0.005 + gMouseX * 0.002;
+          const rotY = gAngle;
+          const rotX = Math.sin(Date.now() * 0.0005) * 0.15 + gMouseY * 0.3;
+
+          const projected = points.map(p => {
+            let x1 = p.x * Math.cos(rotY) + p.z * Math.sin(rotY);
+            let z1 = -p.x * Math.sin(rotY) + p.z * Math.cos(rotY);
+            let y2 = p.y * Math.cos(rotX) - z1 * Math.sin(rotX);
+            let z2 = p.y * Math.sin(rotX) + z1 * Math.cos(rotX);
+            const scale = 1 / (1 + z2 * 0.5);
+            return { sx: cx + x1 * radius * scale, sy: cy + y2 * radius * scale, size: Math.max(0.5, 2.5 * scale), alpha: Math.max(0.1, (z2 + 1) * 0.4), z: z2 };
+          }).sort((a, b) => a.z - b.z);
+
+          // Connections
+          gCtx.strokeStyle = 'rgba(255,255,255,0.04)'; gCtx.lineWidth = 0.5;
+          for (let i = 0; i < projected.length; i++) {
+            for (let j = i + 1; j < projected.length; j++) {
+              const dx = projected[i].sx - projected[j].sx, dy = projected[i].sy - projected[j].sy;
+              if (dx * dx + dy * dy < 12000 && projected[i].z > -0.3 && projected[j].z > -0.3) {
+                gCtx.beginPath(); gCtx.moveTo(projected[i].sx, projected[i].sy); gCtx.lineTo(projected[j].sx, projected[j].sy); gCtx.stroke();
+              }
+            }
+          }
+
+          for (const pt of projected) {
+            gCtx.beginPath(); gCtx.arc(pt.sx, pt.sy, pt.size, 0, Math.PI * 2);
+            gCtx.fillStyle = `rgba(200,220,255,${pt.alpha})`; gCtx.fill();
+          }
+          gCtx.beginPath(); gCtx.arc(cx, cy, radius * 0.98, 0, Math.PI * 2);
+          gCtx.strokeStyle = 'rgba(255,255,255,0.03)'; gCtx.lineWidth = 1; gCtx.stroke();
+        }
+        drawGlobe();
+      }
+
+      // Загрузка
+      window.addEventListener('load', () => {
+        document.getElementById('loader').classList.add('hidden');
+      });
+
+      // Прогресс-бар
+      window.addEventListener('scroll', () => {
+        const h = document.documentElement;
+        const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+        document.getElementById('progress-bar').style.width = pct + '%';
+      });
 
       // Анимация заголовка
       const heroTitle = document.getElementById('hero-title');
